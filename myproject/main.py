@@ -77,3 +77,63 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
+
+# GET Endpoints
+@app.get("/teams/{team_id}", response_model=schemas.Team)
+def read_team(team_id: int, db: Session = Depends(get_db)):
+    team = crud.get_team(db, team_id)
+    if team is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Team not found")
+    return team
+
+@app.get("/players/{player_id}", response_model=schemas.Player)
+def read_player(player_id: int, db: Session = Depends(get_db)):
+    player = crud.get_player(db, player_id)
+    if player is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Player not found")
+    return player
+
+@app.get("/coaches/{coach_id}", response_model=schemas.Coach)
+def read_coach(coach_id: int, db: Session = Depends(get_db)):
+    coach = crud.get_coach(db, coach_id)
+    if coach is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Coach not found")
+    return coach
+
+@app.get("/teams/", response_model=List[schemas.Team])
+def read_teams(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_teams(db, skip=skip, limit=limit)
+
+@app.get("/players/", response_model=List[schemas.Player])
+def read_players(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_players(db, skip=skip, limit=limit)
+
+@app.get("/coaches/", response_model=List[schemas.Coach])
+def read_coaches(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_coaches(db, skip=skip, limit=limit)
+
+# POST Endpoints
+@app.post("/teams/", response_model=schemas.Team)
+def create_team(team: schemas.TeamCreate, db: Session = Depends(get_db)):
+    return crud.create_team(db, team)
+
+@app.post("/players/{team_id}", response_model=schemas.Player)
+def create_player(team_id: int, player: schemas.PlayerCreate, db: Session = Depends(get_db)):
+    return crud.create_player(db, player, team_id)
+
+@app.post("/coaches/{team_id}", response_model=schemas.Coach)
+def create_coach(team_id: int, coach: schemas.CoachCreate, db: Session = Depends(get_db)):
+    return crud.create_coach(db, coach, team_id)
+
+# DELETE Endpoints
+@app.delete("/teams/{team_id}", response_model=schemas.Team)
+def delete_team(team_id: int, db: Session = Depends(get_db)):
+    return crud.remove_team(db, team_id)
+
+@app.delete("/players/{player_id}", response_model=schemas.Player)
+def delete_player(player_id: int, db: Session = Depends(get_db)):
+    return crud.remove_player(db, player_id)
+
+@app.delete("/coaches/{coach_id}", response_model=schemas.Coach)
+def delete_coach(coach_id: int, db: Session = Depends(get_db)):
+    return crud.remove_coach(db, coach_id)
