@@ -162,4 +162,12 @@ def delete_coach(coach_id: int, db: Session = Depends(get_db), token: str = Depe
         raise HTTPException(status_code=404, detail="Coach not found")
     return {"message": "Coach deleted"}
 
+
 # PUT endpoints
+@app.put("/players/{player_id}/{number}", response_model=schemas.Player)
+def update_player_number(player_id: int, number: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    player = crud.get_player(db, player_id)
+    if player is None:
+        raise HTTPException(status_code=404, detail="Player not Found")
+    player.number = number
+    db.commit()

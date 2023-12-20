@@ -113,7 +113,13 @@ def test_get_specific_coaches():
     response = requests.get(f"{BASE_URL}/coaches/1", headers=headers_with_token)
     assert response.status_code == 200
 
+
+
 # test PUT endpoint
+def test_put_number_player():
+    headers_with_token = get_access_token()
+    response = requests.put(f"{BASE_URL}/players/1/12", headers=headers_with_token)
+    assert response.status_code == 200
 
 # test DELETE endpoints
 # test to delete coach
