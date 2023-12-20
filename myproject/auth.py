@@ -16,8 +16,12 @@ pwd_context = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
 
 def get_password_hash(password):
     return pwd_context.hash(password)
+
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
+
+
 
 def authenticate_user(db: Session, username: str, password: str):
     user = crud.get_user_by_email(db, username)
@@ -26,6 +30,7 @@ def authenticate_user(db: Session, username: str, password: str):
     if not verify_password(password, user.hashed_password):
         return False
     return user
+
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -39,6 +44,7 @@ def create_access_token(data: dict):
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
 
 def get_current_user(db: Session, token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
@@ -57,6 +63,7 @@ def get_current_user(db: Session, token: str = Depends(oauth2_scheme)):
     if user is None:
         raise credentials_exception
     return user
+
 
 def get_current_active_user(db: Session, token: str = Depends(oauth2_scheme)):
     current_user = get_current_user(db, token)

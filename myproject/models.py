@@ -2,12 +2,14 @@ from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
+
 
 class Team(Base):
     __tablename__ = "teams"
@@ -19,6 +21,8 @@ class Team(Base):
 
     # Define relationship for team and players models
     players = relationship("Player", back_populates="team", cascade="all, delete-orphan")
+    coaches = relationship("Coach", back_populates="team", cascade="all, delete-orphan")
+
 
 class Player(Base):
     __tablename__ = "players"
@@ -27,13 +31,14 @@ class Player(Base):
     last_name = Column(String,  index=True)
     position = Column(String,  index=True)
     nationality = Column(String,  index=True)
-    number = Column(String,  index=True)
-    birthdate = Column(Date, nullable=True)
+    number = Column(Integer,  index=True)
+    birthdate = Column(String, nullable=True)
 
     # Foreign Key player --> team
     team_id = Column(Integer, ForeignKey("teams.id"))
     # Define relationship for team and players models
     team = relationship("Team", back_populates="players")
+
 
 class Coach(Base):
     __tablename__ = "coaches"
