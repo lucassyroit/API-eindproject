@@ -1,9 +1,9 @@
+python-jose==3.3.0
+python-jose[cryptography]
+pytest >= 7.2.0
+requests >= 2.28.1
 fastapi>=0.68.0,<0.69.0
 pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 sqlalchemy==1.4.42
 passlib==1.7.4
-python-jose==3.3.0
-python-jose[cryptography]
-pytest >= 7.2.0
-requests >= 2.28.1
