@@ -1,10 +1,10 @@
 import requests
 import json
-import pytest
 
 BASE_URL = "http://127.0.0.1:8000"
 
 
+# test POST endpoints
 # Test to create user
 def test_create_user():
     data = {"email": "test@test.be", "password": "test"}
@@ -71,4 +71,67 @@ def test_create_coach():
     response = requests.post(f"{BASE_URL}/coaches/1", json=data, headers=headers_with_token)
     assert response.status_code == 200
 
-# Testen aanmaken voor GET, PUT and DELETE endpoints
+
+# test to get teams
+def test_get_all_teams():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/teams/", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to get specific team
+def test_get_specific_team():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/teams/1", headers=headers_with_token)
+    assert response.status_code == 200
+
+# test GET endpoints
+# test to get players
+def test_get_all_players():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/players", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to get specific player
+def test_get_specific_player():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/players/1", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to get coaches
+def test_get_all_coaches():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/coaches", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to get specific coach
+def test_get_specific_coaches():
+    headers_with_token = get_access_token()
+    response = requests.get(f"{BASE_URL}/coaches/1", headers=headers_with_token)
+    assert response.status_code == 200
+
+# test PUT endpoint
+
+# test DELETE endpoints
+# test to delete coach
+def test_delete_coach():
+    headers_with_token = get_access_token()
+    response = requests.delete(f"{BASE_URL}/coaches/1", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to delete player
+def test_delete_player():
+    headers_with_token = get_access_token()
+    response = requests.delete(f"{BASE_URL}/players/1", headers=headers_with_token)
+    assert response.status_code == 200
+
+
+# test to delete team
+def test_delete_team():
+    headers_with_token = get_access_token()
+    response = requests.delete(f"{BASE_URL}/teams/1", headers=headers_with_token)
+    assert response.status_code == 200
