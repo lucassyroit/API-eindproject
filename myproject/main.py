@@ -142,16 +142,22 @@ def create_coach(team_id: int, coach: schemas.CoachCreate, db: Session = Depends
 
 
 # DELETE Endpoints
-@app.delete("/teams/{team_id}", response_model=schemas.Team)
+@app.delete("/teams/{team_id}")
 def delete_team(team_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    return crud.remove_team(db, team_id)
+    if not crud.remove_team(db, team_id):
+        raise HTTPException(status_code=404, detail="Team not found")
+    return {"message": "Team (Including Players and Coaches) deleted"}
 
 
-@app.delete("/players/{player_id}", response_model=schemas.Player)
+@app.delete("/players/{player_id}")
 def delete_player(player_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    return crud.remove_player(db, player_id)
+    if not crud.remove_player(db, player_id):
+        raise HTTPException(status_code=404, detail="Player not found")
+    return {"message": "Player deleted"}
 
 
-@app.delete("/coaches/{coach_id}", response_model=schemas.Coach)
+@app.delete("/coaches/{coach_id}")
 def delete_coach(coach_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    return crud.remove_coach(db, coach_id)
+    if not crud.remove_coach(db, coach_id):
+        raise HTTPException(status_code=404, detail="Coach not found")
+    return {"message": "Coach deleted"}
