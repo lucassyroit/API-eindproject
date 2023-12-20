@@ -8,4 +8,4 @@ services:
     - sqlite_pl_volume:/code/sqlitedb
 
 volumes:
-  sqlite_rallycross_volume:
+  sqlite_pl_volume:
