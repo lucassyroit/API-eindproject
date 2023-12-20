@@ -67,7 +67,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     access_token = auth.create_access_token(
         data={"sub": user.email}
     )
-    #Return the JWT as a bearer token to be placed in the headers
+    # Return the JWT as a bearer token to be placed in the headers
     return {"access_token": access_token, "token_type": "bearer"}
 
 
@@ -161,3 +161,5 @@ def delete_coach(coach_id: int, db: Session = Depends(get_db), token: str = Depe
     if not crud.remove_coach(db, coach_id):
         raise HTTPException(status_code=404, detail="Coach not found")
     return {"message": "Coach deleted"}
+
+# PUT endpoints

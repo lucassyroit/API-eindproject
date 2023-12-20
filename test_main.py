@@ -70,3 +70,5 @@ def test_create_coach():
     }
     response = requests.post(f"{BASE_URL}/coaches/1", json=data, headers=headers_with_token)
     assert response.status_code == 200
+
+# Testen aanmaken voor GET, PUT and DELETE endpoints
