@@ -1,6 +1,6 @@
 version: "3.9"
 services:
- system-service:
+ football:
   image: lucilas/api-eindproject
   ports:
     - "8000:8000"
