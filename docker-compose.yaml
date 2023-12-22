@@ -9,7 +9,7 @@ services:
   depends_on:
     - activemq-lucassyroit
   environment:
-      - ACTIVE_MQ_BROKER_URL=tcp://activemq-lucassyroit:61616
+      - ACTIVE_MQ_BROKER_URL=tcp://activemq-lucassyroit:61616?wireFormat.maxFrameSize=1048576000
  activemq-lucassyroit:
    image: rmohr/activemq:5.15.9
    ports:
