@@ -9,7 +9,7 @@ services:
   depends_on:
     - activemq-lucassyroit
   environment:
-      - ACTIVE_MQ_BROKER_URL=tcp://35.225.69.73:61616
+      - ACTIVE_MQ_BROKER_URL=https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net
  activemq-lucassyroit:
    image: rmohr/activemq:5.15.9
    ports:
