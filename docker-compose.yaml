@@ -9,10 +9,11 @@ services:
   depends_on:
     - activemq
   environment:
-      - ACTIVE_MQ_BROKER_URL=tcp://localhost:8161
+      - ACTIVE_MQ_BROKER_URL=tcp://localhost:61616  # Add ActiveMQ broker URL
  activemq:
    image: webcenter/activemq:latest
    ports:
+     - "61616:61616"
      - "8161:8161"
    environment:
      ACTIVEMQ_ADMIN_LOGIN: admin
