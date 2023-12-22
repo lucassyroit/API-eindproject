@@ -9,7 +9,7 @@ services:
   depends_on:
     - activemq-lucassyroit
   environment:
-      - ACTIVE_MQ_BROKER_URL=stomp://activemq-lucassyroit:61616
+      - ACTIVE_MQ_BROKER_URL=https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net:61616
  activemq-lucassyroit:
    image: webcenter/activemq:latest
    ports:
