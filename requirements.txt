@@ -3,3 +3,5 @@ pydantic>=1.8.0,<2.0.0
 uvicorn>=0.15.0,<0.16.0
 sqlalchemy==1.4.42
 passlib==1.7.4
+stomp.py==4.1.23
+urllib3==1.26.7
