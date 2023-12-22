@@ -25,7 +25,7 @@ models.Base.metadata.create_all(bind=engine)
 print("Tables created.......")
 
 # ActiveMQ Connection Setup
-active_mq_broker_url = os.getenv("ACTIVE_MQ_BROKER_URL", "tcp://activemq:61616")
+active_mq_broker_url = os.getenv("ACTIVE_MQ_BROKER_URL", "tcp://localhost:8161")
 parsed_url = urllib.parse.urlparse(active_mq_broker_url)
 connection = stomp.Connection(host_and_ports=[(parsed_url.hostname, parsed_url.port)])
 connection.start()
