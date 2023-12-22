@@ -11,10 +11,11 @@ services:
   environment:
       - ACTIVE_MQ_BROKER_URL=https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net:61616
  activemq-lucassyroit:
-   image: webcenter/activemq:latest
+   image: rmohr/activemq:5.12.1
    ports:
      - "61616:61616"
      - "8161:8161"
+     - "61613:61613"
    environment:
      ACTIVEMQ_NAME: activemq-lucassyroit
      ACTIVEMQ_ADMIN_LOGIN: admin
