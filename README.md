@@ -40,7 +40,11 @@ Ik heb hiervoor gekozen omdat voetbal een sport is die mij interesseerd daarnaas
 
 ### 2.1 Test alle niet-GET endpoints.
 
-### test_main.py
+#### test_main.py
+
+### 2.2 Zorg ervoor dat de testfile ook tijdens de GitHub Actions gerund wordt.
+
+#### workflow.yml
 
 ## Postman
 
