@@ -25,6 +25,12 @@ jobs:
           pip install python-jose[cryptography]
           pip install python-multipart
 
+      - name: Create SQLite database
+        run: |
+          cd myproject
+          mkdir -p sqlitedb
+          sqlite3 sqlitedb/data.db ".databases"
+
       - name: Start Uvicorn server
         run: |
           cd myproject
