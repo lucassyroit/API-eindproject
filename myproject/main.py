@@ -10,8 +10,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import auth
 from database import SessionLocal, engine
 from typing import List
-import stomp
-import urllib.parse
+# import stomp
+# import urllib.parse
 
 
 # Database Initialization
@@ -25,17 +25,17 @@ models.Base.metadata.create_all(bind=engine)
 print("Tables created.......")
 
 # ActiveMQ Connection Setup
-active_mq_broker_url = os.getenv("ACTIVE_MQ_BROKER_URL", "https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net")
-parsed_url = urllib.parse.urlparse(active_mq_broker_url)
-print("ActiveMQ Broker URL: " + active_mq_broker_url)
-connection = stomp.Connection(host_and_ports=[parsed_url.hostname])
-connection.start()
-connection.connect(wait=True)
+# active_mq_broker_url = os.getenv("ACTIVE_MQ_BROKER_URL", "https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net")
+# parsed_url = urllib.parse.urlparse(active_mq_broker_url)
+# print("ActiveMQ Broker URL: " + active_mq_broker_url)
+# connection = stomp.Connection(host_and_ports=[parsed_url.hostname])
+# connection.start()
+# connection.connect(wait=True)
 
 
 # Custom function to send messages to ActiveMQ
-def send_message_to_activemq(destination, message):
-    connection.send(body=message, destination=destination)
+# def send_message_to_activemq(destination, message):
+#     connection.send(body=message, destination=destination)
 
 
 # FastAPI App Setup
@@ -124,10 +124,10 @@ def get_all_coaches(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
 
 # POST Endpoints
 # POST endpoint to send message to ActiveMQ
-@app.post("/send-to-activemq", tags=["ActiveMQ"])
-def send_to_activemq(message: str, destination: str):
-    send_message_to_activemq(destination, message)
-    return {"message": "Message sent to ActiveMQ"}
+# @app.post("/send-to-activemq", tags=["ActiveMQ"])
+# def send_to_activemq(message: str, destination: str):
+#     send_message_to_activemq(destination, message)
+#     return {"message": "Message sent to ActiveMQ"}
 
 
 # POST endpoint to get a token for authorization
@@ -213,6 +213,6 @@ def delete_coach(coach_id: int, db: Session = Depends(get_db), token: str = Depe
 
 
 # Close ActiveMQ connection when the application shuts down
-@app.on_event("shutdown")
-def shutdown_event():
-    connection.disconnect()
+# @app.on_event("shutdown")
+# def shutdown_event():
+#     connection.disconnect()

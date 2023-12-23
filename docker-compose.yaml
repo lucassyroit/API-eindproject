@@ -6,19 +6,19 @@ services:
     - "8000:8000"
   volumes:
     - sqlite_pl_volume:/code/sqlitedb
-  depends_on:
-    - activemq-lucassyroit
-  environment:
-      - ACTIVE_MQ_BROKER_URL=https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net
- activemq-lucassyroit:
-   image: rmohr/activemq:5.15.9
-   ports:
-     - "61616:61616"
-     - "8161:8161"
-   environment:
-     ACTIVEMQ_NAME: activemq-lucassyroit
-     ACTIVEMQ_ADMIN_LOGIN: admin
-     ACTIVEMQ_ADMIN_PASSWORD: admin
+  # depends_on:
+  #   - activemq-lucassyroit
+  # environment:
+  #     - ACTIVE_MQ_BROKER_URL=https://activemq-lucassyroit-61616-lucassyroit.cloud.okteto.net
+#  activemq-lucassyroit:
+#    image: rmohr/activemq:5.15.9
+#    ports:
+#      - "61616:61616"
+#      - "8161:8161"
+#    environment:
+#      ACTIVEMQ_NAME: activemq-lucassyroit
+#      ACTIVEMQ_ADMIN_LOGIN: admin
+#      ACTIVEMQ_ADMIN_PASSWORD: admin
 
 volumes:
   sqlite_pl_volume:
