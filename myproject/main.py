@@ -185,6 +185,7 @@ def update_player_number(player_id: int, number: int, db: Session = Depends(get_
         raise HTTPException(status_code=404, detail="Player not Found")
     player.number = number
     db.commit()
+    return {"message": "Player number has been updated"}
 
 
 # DELETE Endpoints
