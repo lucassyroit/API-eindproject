@@ -72,6 +72,7 @@ def test_create_coach():
     assert response.status_code == 200
 
 
+# test GET endpoints
 # test to get teams
 def test_get_all_teams():
     headers_with_token = get_access_token()
@@ -85,7 +86,7 @@ def test_get_specific_team():
     response = requests.get(f"{BASE_URL}/teams/1", headers=headers_with_token)
     assert response.status_code == 200
 
-# test GET endpoints
+
 # test to get players
 def test_get_all_players():
     headers_with_token = get_access_token()
