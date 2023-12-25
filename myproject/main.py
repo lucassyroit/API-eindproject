@@ -178,7 +178,7 @@ def create_coach(team_id: int, coach: schemas.CoachCreate, db: Session = Depends
 
 # PUT endpoints
 # Endpoint to update a players shirt number
-@app.put("/players/{player_id}/{number}", response_model=schemas.Player, tags=["Players"])
+@app.put("/players/{player_id}/{number}", tags=["Players"])
 def update_player_number(player_id: int, number: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     player = crud.get_player(db, player_id)
     if player is None:
