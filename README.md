@@ -967,7 +967,9 @@ GET Endpoint --> /players/{player_id}
 
 PUT Endpoint --> /players/{player_id}/{number}
 
-TO-DO
+![Update player number](img/image-52.png)
+Controleer dat de nummer is geupdatet
+![Check updated player number](img/image-53.png)
 
 DELETE Endpoint --> /players/{player_id}
 
@@ -1063,7 +1065,10 @@ GET Endpoint --> /players/{player_id}
 
 PUT Endpoint --> /players/{player_id}/{number}
 
-!!!!!!!!!!!! TO DO !!!!!!!!!!!!!!
+![Update player number](img/image-50.png)
+
+Controleer dat de nummer is geupdatet
+![Check updated player number](img/image-51.png)
 
 The number has been updated
 ![Number is geupdate, endpoint get /players/{player_id}](img/image-25.png)
