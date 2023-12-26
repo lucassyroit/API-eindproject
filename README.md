@@ -18,6 +18,10 @@ Ik heb hiervoor gekozen omdat voetbal een sport is die mij interesseerd daarnaas
 
 ### main.py
 
+In main.py staat de code voor de endpoints. In totaal heb ik 7 GET endpoints, 5 POST, 1 PUT en 3 DELETE.
+
+Naast code voor de endpoints wordt er ook de database inialisatie gedaan. In de endpoints staan ook tags om in de docs van de API een verdeling te hebben.
+
 ```python
 # Imports
 from fastapi import Depends, FastAPI, HTTPException, status
@@ -243,6 +247,8 @@ def delete_coach(coach_id: int, db: Session = Depends(get_db), token: str = Depe
 
 ### database.py
 
+Deze code stelt de SQLAlchemy-componenten in voor het werken met een SQLite-database in de API.
+
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -259,6 +265,12 @@ Base = declarative_base()
 ```
 
 ### models.py
+
+In models.py worden alle tabellen voor de database aangemaakt. In mijn geval de tabel Users, Teams, Players en coaches. De tabel Users zal de accounts bevatten van de API met gehashde wachtwoorden.
+
+De tabel team houdt de voetbalploegen bij, spelers en coaches van een bepaald team worden ook in de respectievelijke tabellen bijgehouden.
+
+Er zijn ook relaties aangemaakt zodat de tabel players en coaches bij de tabel van teams horen.
 
 ```python
 from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
@@ -319,6 +331,8 @@ class Coach(Base):
 ```
 
 ### schemas.py
+
+Deze code definieert Pydantic-modellen voor het werken met gegevens in de API.
 
 ```python
 from pydantic import BaseModel
@@ -406,6 +420,8 @@ class Team(TeamBase):
 ```
 
 ### crud.py
+
+In crud.py worden create, read, update en delete activiteiten geplaats die met de database gaan communiceren en verzorgen van de endpoints van de API.
 
 ```python
 
@@ -550,6 +566,8 @@ def remove_coach(db: Session, coach_id: int):
 
 ### auth.py
 
+auth.py zorgt voor authenticate en autorizatie in de API. Er worden fucnties opgesteld voor het hashen van wachtwoorden voor het veilig houden van het wachtwoord in de datbase. Daarnaast ook authenticatie functies voor het gebruik van de API.
+
 ```python
 from passlib.context import CryptContext
 import crud
@@ -625,7 +643,15 @@ def get_current_active_user(db: Session, token: str = Depends(oauth2_scheme)):
     return current_user
 ```
 
+![Hashed password in DB](img/image-54.png)
+
 ### test_main.py
+
+Voor het testen van de GET endpoints van de API heb ik een variable waar de API wordt op gehost meegegeven om deze bij de request niet altijd aan te passen.
+
+Daarnaast is er een helper functie gemaakt, deze gaat een bearer token opvragen met username en wachtwoord zodat je je token kan gebruiken in je endpoints voor authorizatie.
+
+In elke test voor de GET endpoint wordt deze helper functie opgeroepen om de bearer token te verkrijgen om als header te gebruiken in de request. Daarnaast wordt er een request gestuurd naar het endpoint en wordt deze gecontrolleerd op HTTP code 200.
 
 ```python
 
@@ -633,6 +659,25 @@ import requests
 import json
 
 BASE_URL = "http://127.0.0.1:8000"
+
+# Helper function to get a valid access token
+def get_access_token():
+    data = {
+        "client_id": "",
+        "client_secret": "",
+        "scope": "",
+        "grant_type": "",
+        "refresh_token": "",
+        "username": "test@test.be",
+        "password": "test"
+    }
+    response = requests.post(f"{BASE_URL}/token", json=data)
+    access_token = response.json().get("access_token")
+    headers_with_token = {
+        "accept": "application/json",
+        "Authorization": f'Bearer {access_token}'
+    }
+    return headers_with_token
 
 
 # test GET endpoints
@@ -690,6 +735,10 @@ Link naar de gehoste API: https://football-lucassyroit.cloud.okteto.net
 ### 2.1 Test alle niet-GET endpoints.
 
 #### test_main.py
+
+Daarnaast heb ik ook de andere endpoints getest waar ik zelf ook data meegeef om de POST endpoints te testen. In de request wordt ook deze data meegestuurd zoals de header met de bearer token in.
+
+Daarnaast wordt het PUT endpoint en DELETE endpoints ook getest. Het maken van een gebruiker en het opvragen van een token gebeurd zonder header aangezien deze geen authorizatie nodig hebben om gebruikt te worden.
 
 ```python
 
