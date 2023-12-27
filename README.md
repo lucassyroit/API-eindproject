@@ -965,6 +965,14 @@ jobs:
 9. Upload container to Docker Hub with Push
    - Deze stap zal de docker image naar docker hub pushen.
 
+### 3.1 Maak een front-end voor je applicatie die al je GET endpoints en POST endpoints bevat.
+
+In de repository: https://github.com/lucassyroit/api-eindproject-front-end vind je een begin van de Front-End waar ik het Get Endpoint van teams heb ingezet. Ik kreeg hiervoor een 401 Not Authorized wat logisch is. Aangezien ik geen POST voor user en token heb voor een mogelijkheid om te authorizeren.
+
+### 4.2 Zet een ActiveMQ message queue systeem voor een endpoint van je API, dit zit tevens ook als container in je deployment.
+
+In de comments van main.py file staat een endpoint en functies voor ActiveMQ, in docker-compose staat ook de container in comments. De reden dat ik hier niet verder mee ben gegaan is dat ik geen connectie kon maken met de broker.
+
 ## Postman
 
 ### Users
